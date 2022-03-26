@@ -12,7 +12,11 @@ interface Role {
     createTime: string,
     updateTime: string
 }
+
 export interface AccountResultType {
+    username: string
+}
+export interface UserInfo {
     id: number,
     username: string,
     nickName: string,

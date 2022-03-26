@@ -2,7 +2,6 @@ import { MyRequestConfig } from "./type"
 import axios, { AxiosInstance } from "axios"
 import { ElLoading } from 'element-plus'
 
-
 const SHOW_LOADING = true;
 
 class MyRequest {
@@ -57,7 +56,8 @@ class MyRequest {
             (result) => {
                 //这里将显示的信息加载关闭
                 this.loadingInstance?.close();
-                //将得到的响应返回
+
+                //将得到的响应返回(这里返回data就可以和我们自定义的结果接口对应了)
                 return result.data;
             },
             (error: any) => {
@@ -83,7 +83,7 @@ class MyRequest {
                 //将响应交给响应拦截器
                 res = config.myInterceptorManager.responseInterceptor(res);
             }
-            console.log(res)
+            // console.log(res)
             //这里需要将是否显示加载信息重置
             this.isShowLoading = SHOW_LOADING;
             //成功返回响应

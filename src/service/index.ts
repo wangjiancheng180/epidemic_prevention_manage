@@ -15,6 +15,7 @@ export const myRequest = new MyRequest({
             const token = localCache.getCache("token");
             if (token) {
                 //将token设置到请求头中
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 config.headers!.Authorization = 'Bearer ' + token;
             }
             return config;
@@ -23,6 +24,13 @@ export const myRequest = new MyRequest({
             return error;
         },
         responseInterceptor: (result) => {
+            //把响应结果的请求头里的token拿到
+            const token = result.headers.Authorization ?? result.headers.authorization;
+            if (token) {
+                // console.log('token==' + token)
+                //将token缓存
+                localCache.setCache("token", token);
+            }
             return result;
         },
         responseInterceptorCatch: (error) => {
