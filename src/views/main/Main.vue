@@ -1,13 +1,13 @@
 <template>
     <el-container class="main">
-        <el-aside width="200px" class="main-content">
+        <el-aside :width="state.isCollapse ? '65px' : '200px'" class="main-content">
             <side-menu></side-menu>
         </el-aside>
         <el-container class="page">
             <el-header class="page-header">
                 <nav-head></nav-head>
             </el-header>
-            <el-main>
+            <el-main class="page-content">
                 <router-view v-slot="{ Component }">
                     <transition>
                         <keep-alive>
@@ -24,6 +24,7 @@
 import { defineComponent, onBeforeMount, onMounted } from 'vue'
 import SideMenu from '@/components/menu/side-menu/src/SideMenu.vue'
 import NavHead from '@/components/menu/nav-head/src/NavHead.vue'
+import { useState, symbolState } from '@/util/store'
 export default defineComponent({
     name: 'Main',
     components: {
@@ -38,7 +39,7 @@ export default defineComponent({
             //3.组件挂载到页面之后执行-------onMounted
         })
         return {
-
+            state: useState(symbolState)
         }
     },
 })
@@ -46,21 +47,35 @@ export default defineComponent({
 </script>
 <style scoped lang='less'>
 .page {
-    padding: 0px;
+    height: 100%;
     background-color: #f0f2f5;
+
+    .page-header {
+        // padding: 0 0 0 0;
+        height: 100%;
+        background-color: #ffffff;
+    }
+    .page-content {
+        height: calc(100% - 48px);
+    }
 }
 
-.page-header {
-    padding: 0px;
-    background-color: #ffffff;
-}
-
-.main {
-    overflow-x: hidden;
-    // padding: 0 30px;
-    box-sizing: border-box;
-}
 .main-content {
-    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 200px;
+    text-align: left;
+    //改变鼠标光标样式
+    cursor: pointer;
+    background-color: #060716;
+    //给改变宽度添加动画
+    transition: width 0.3s linear;
+    //设置滚动条出现时的厚度
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 </style>

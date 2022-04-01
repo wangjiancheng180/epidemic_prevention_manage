@@ -1,46 +1,46 @@
 <template>
     <div class="nav">
-        <el-row class="head" justify="space-between">
-            <!-- 面包屑导航 -->
-            <el-col :span="12" class="bread-crumb"></el-col>
+        <el-row justify="space-between">
+            <el-col :span="12">
+                <div class="head-left">
+                    <!-- 菜单栏缩进 -->
+                    <div class="icon-box">
+                        <el-icon :size="25" :class="state.isCollapse ? '' : 'base-icon-unfold'">
+                            <Expand @click="changeCollapse()" />
+                        </el-icon>
+                    </div>
 
-            <el-col :span="12" class="find-user">
-                <el-row justify="end" class="address" :gutter="10">
-                    <!-- 作者联系方式 -->
+                    <!-- 面包屑导航 -->
+                </div>
+            </el-col>
 
-                    <el-col :span="2" class="image">
-                        <el-image :src="qq_logo_url" :fit="'fill'"></el-image>
-                    </el-col>
-                    <el-col :span="2" class="image">
-                        <el-image :src="wechat_logo_url" :fit="'fill'"></el-image>
-                    </el-col>
-                    <el-col :span="2" class="image">
-                        <el-image :src="github_logo_url" :fit="'fill'"></el-image>
-                    </el-col>
-                    <el-col :span="2" class="image">
-                        <el-image :src="date_logo_url" :fit="'fill'"></el-image>
-                    </el-col>
-                    <el-col :span="2" class="image">
-                        <el-image :src="msg_logo_url" :fit="'fill'"></el-image>
-                    </el-col>
-
-                    <!-- 用户信息 -->
-                    <el-col :span="3">
-                        <el-dropdown>
-                            <!-- 头像 -->
+            <el-col :span="12">
+                <!-- 用户信息 -->
+                <div class="user-information">
+                    <el-dropdown>
+                        <!-- 头像 -->
+                        <div class="avtar-box">
                             <el-avatar
-                                size="large"
+                                size="default"
                                 src="https://img-blog.csdnimg.cn/img_convert/c44557e91e69011385a02e707505b19a.png"
+                                class="base-avtar"
                             ></el-avatar>
-                            <template #dropdown>
-                                <el-dropdown-menu>
-                                    <el-dropdown-item>我的信息</el-dropdown-item>
-                                    <el-dropdown-item>退出登录</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </template>
-                        </el-dropdown>
-                    </el-col>
-                </el-row>
+                        </div>
+
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item>我的信息</el-dropdown-item>
+                                <el-dropdown-item>退出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
+
+                    <el-image :src="msg_logo_url" :fit="'fill'" class="el-img"></el-image>
+                    <el-image :src="date_logo_url" :fit="'fill'" class="el-img"></el-image>
+                    <el-image :src="github_logo_url" :fit="'fill'" class="el-img"></el-image>
+                    <el-image :src="wechat_logo_url" :fit="'fill'" class="el-img"></el-image>
+                    <el-image :src="qq_logo_url" :fit="'fill'" class="el-img"></el-image>
+                </div>
             </el-col>
         </el-row>
     </div>
@@ -48,8 +48,14 @@
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, onMounted } from 'vue'
+import { Expand } from '@element-plus/icons-vue'
+import { useState, symbolState, symbolChangState } from '@/util/store'
+
 export default defineComponent({
     name: 'NavHead',
+    components: {
+        Expand
+    },
     setup() {
         onBeforeMount(() => {
             //2.组件挂载页面之前执行----onBeforeMount
@@ -59,19 +65,21 @@ export default defineComponent({
         })
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const qq_logo_url = require('../../../../assets/images/qq_logo.png');
+        const qq_logo_url = require('@/assets/images/qq_logo.png');
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const wechat_logo_url = require('../../../../assets/images/wechat_logo.png');
+        const wechat_logo_url = require('@/assets/images/wechat_logo.png');
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const github_logo_url = require('../../../../assets/images/github_logo.png');
+        const github_logo_url = require('@/assets/images/github_logo.png');
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const date_logo_url = require('../../../../assets/images/date_logo.png');
+        const date_logo_url = require('@/assets/images/date_logo.png');
 
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const msg_logo_url = require('../../../../assets/images/msg_logo.png');
+        const msg_logo_url = require('@/assets/images/msg_logo.png');
+        const state = useState(symbolState);
+        const changeCollapse = useState(symbolChangState)
 
 
         return {
@@ -79,7 +87,9 @@ export default defineComponent({
             wechat_logo_url,
             github_logo_url,
             date_logo_url,
-            msg_logo_url
+            msg_logo_url,
+            changeCollapse,
+            state
         }
     },
 })
@@ -88,20 +98,32 @@ export default defineComponent({
 <style scoped lang='less'>
 .nav {
     overflow-x: hidden;
-    // padding: 0 30px;
-    box-sizing: border-box;
 }
-// .head {
-//     border: 1px solid rebeccapurple;
-// }
 
-.address {
-    height: 100%;
-    .image {
-        padding-top: 30px;
+.head-left {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    .icon-box {
+        cursor: pointer;
+    }
+    .base-icon-unfold {
+        transform: rotate(180deg);
     }
 }
-.avatar {
-    .rem2px(height, 1.1);
+
+.user-information {
+    display: flex;
+    height: 150px;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    .el-img {
+        width: 100px;
+        height: 100px;
+        margin: 0 60px 0 0;
+    }
 }
 </style>
