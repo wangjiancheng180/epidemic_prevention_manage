@@ -16,7 +16,7 @@ export const myRequest = new MyRequest({
             if (token) {
                 //将token设置到请求头中
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                config.headers!.Authorization = 'Bearer ' + token;
+                config.headers!.Authorization = `Bearer ${token}`;
             }
             return config;
         },

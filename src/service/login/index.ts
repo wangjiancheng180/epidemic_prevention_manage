@@ -9,7 +9,7 @@ enum AccountLogintApi {
 
 export function login(account: AccountLoginType): any {
     return myRequest.post<ResultType<AccountResultType>>({
-        url: AccountLogintApi.ACCOUNT_LOGIN + '?username=' + account.username + '&password=' + account.password,
+        url: AccountLogintApi.ACCOUNT_LOGIN + `?username=${account.username}&password=${account.password}`,
 
     })
 }

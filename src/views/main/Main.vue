@@ -47,7 +47,7 @@ export default defineComponent({
 </script>
 <style scoped lang='less'>
 .page {
-    height: 100%;
+    height: calc(100% - 48px);
     background-color: #f0f2f5;
 
     .page-header {
