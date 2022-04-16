@@ -1,11 +1,5 @@
 <template>
     <div class="side-menu">
-        <div class="logo">
-            <div class="img">
-                <el-image :src="logo_url" :fit="'fill'"></el-image>
-            </div>
-            <span class="title" v-show="!isCollapse">万无疫失</span>
-        </div>
         <el-menu
             active-text-color="#ffd04b"
             background-color="#060716"
@@ -14,6 +8,12 @@
             text-color="#fff"
             :collapse="isCollapse"
         >
+            <div class="logo">
+                <div class="img">
+                    <el-image :src="logo_url" :fit="'fill'"></el-image>
+                </div>
+                <span class="title" v-show="!isCollapse">万无疫失</span>
+            </div>
             <el-sub-menu index="1">
                 <template #title>
                     <el-icon color="#FFFFFF">
@@ -101,6 +101,7 @@ export default defineComponent({
     height: 180px;
     padding: 0px 50px 0px 100px;
     flex-direction: row;
+    // background-color: black;
     // justify-content: space-evenly;
     align-items: center;
     .img {

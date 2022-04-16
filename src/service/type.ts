@@ -1,7 +1,7 @@
 
 export interface ResultType<T> {
     code?: number,
-    messsage?: string,
+    message?: string,
     data?: T,
 }
 

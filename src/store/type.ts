@@ -9,3 +9,12 @@ export interface RootStateType {
 export interface RootWithModule extends RootStateType {
     system: SystemState
 }
+
+export interface BaseEnetity {
+    createUserId?: number,
+    createUserName?: string,
+    createTime?: string,
+    updateUserId?: number,
+    updateUserName?: string,
+    updateTime?: string
+}

@@ -1,19 +1,19 @@
 <template>
     <div>
-        <common-table :table-dtata="tableData" :table-types="tableTypes">
+        <!-- <common-table :table-dtata="tableData" :table-types="tableTypes">
             <el-button type="success" plain>Success</el-button>
-        </common-table>
+        </common-table> -->
     </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, onBeforeMount, onMounted } from 'vue'
-import CommonTable from '@/components/table/CommonTable.vue'
-import { tableTypes } from './config/tableConfig'
+// import CommonTable from '@/components/table/CommonTable.vue'
+import { tableTypes } from './config/type'
 export default defineComponent({
     name: 'User',
     components: {
-        CommonTable
+        // CommonTable
     },
     setup() {
         onBeforeMount(() => {
@@ -23,62 +23,9 @@ export default defineComponent({
             //3.组件挂载到页面之后执行-------onMounted
         })
 
-        const tableData = [
-            {
-                id: '1',
-                date: '2016-05-03',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-                children: [
-                    {
-                        id: '5',
-                        date: '2016-05-02',
-                        name: 'Tom',
-                        address: 'No. 189, Grove St, Los Angeles',
-                        children: [
-                            {
-                                id: '7',
-                                date: '2016-05-02',
-                                name: 'Tom',
-                                address: 'No. 189, Grove St, Los Angeles',
-                            },
-                            {
-                                id: '8',
-                                date: '2016-05-04',
-                                name: 'Tom',
-                                address: 'No. 189, Grove St, Los Angeles',
-                            },
-                        ]
-                    },
-                    {
-                        id: '6',
-                        date: '2016-05-04',
-                        name: 'Tom',
-                        address: 'No. 189, Grove St, Los Angeles',
-                    },
-                ]
-            },
-            {
-                id: '2',
-                date: '2016-05-02',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            },
-            {
-                id: '3',
-                date: '2016-05-04',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            },
-            {
-                id: '4',
-                date: '2016-05-01',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }
-        ]
+
         return {
-            tableData,
+
             tableTypes
         }
     },

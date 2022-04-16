@@ -13,3 +13,12 @@ export const tableTypes = [
 
 ]
 
+export const formTypes = [
+    { label: "名称", prop: "name", field: 'name' },
+    { label: "key值", prop: "sourceKey", field: 'sourceKey' },
+    { label: "资源路径", prop: "sourceUrl", field: 'sourceUrl' },
+    { label: "父级资源", isSlot: true, field: 'parentIds' },
+    { label: "层级", prop: "level", field: 'level', disabled: true },
+    { label: "排序", prop: "sort", field: 'sort' }
+]
+

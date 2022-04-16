@@ -20,3 +20,14 @@ export interface SysResourceCreateBean {
     level: number,
     sort: number,
 }
+
+
+export interface SysResource extends BaseType {
+    id: number,
+    level: number,
+    name: string,
+    sort: number,
+    sourceKey: string,
+    sourceUrl?: string,
+    parentIds?: Array<number>
+}
