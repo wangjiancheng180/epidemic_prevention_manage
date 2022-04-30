@@ -23,6 +23,7 @@ import { loginFormRules } from './hooks/loginFormRules'
 import { ElForm, ElMessage } from "element-plus"
 import { login } from '@/service/login'
 import { useRouter } from 'vue-router'
+import localeCache from '@/util/cache'
 
 
 
@@ -54,6 +55,7 @@ export default defineComponent({
             // console.log(result)
             switch (result.code) {
               case 1:
+                localeCache.setCache("user", result.data)
                 //这里只需要在成功登录的时候进行页面跳转
                 router.push({
                   name: "Main"

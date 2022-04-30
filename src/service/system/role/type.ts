@@ -14,7 +14,7 @@ export interface SysRoleCreateBean {
     status: number,
     sort: number,
     description?: string,
-    resourceIds?: Array<number> //这个用来给后台发送绑定角色的资源id  
+    resourceIds?: Array<number | undefined> //这个用来给后台发送绑定角色的资源id  
 }
 
 export interface SysRole {

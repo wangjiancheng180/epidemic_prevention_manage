@@ -5,6 +5,7 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import "../public/rem.less"
+import "./assets/css/global.css"
 import "lib-flexible/flexible.js"
 import { symbolState, createState, symbolChangState, changeCollapse } from '@/util/store'
 

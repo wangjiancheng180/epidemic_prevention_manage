@@ -1,6 +1,6 @@
 import MyRequest from "./request"
 import localCache from "@/util/cache"
-
+import { ElMessage } from 'element-plus'
 
 
 export const myRequest = new MyRequest({
@@ -30,6 +30,12 @@ export const myRequest = new MyRequest({
                 // console.log('token==' + token)
                 //将token缓存
                 localCache.setCache("token", token);
+            }
+            //这里还要处理token过期的问题
+            if (result.data.code === 4) {
+                //4是代表token解析异常,将缓存在本地的token删除
+                localCache.clearCache()
+                ElMessage.error("登录过期,请重新登录！")
             }
             return result;
         },

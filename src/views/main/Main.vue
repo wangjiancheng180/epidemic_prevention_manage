@@ -23,7 +23,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onBeforeMount, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import SideMenu from '@/components/menu/side-menu/src/SideMenu.vue'
 import NavHead from '@/components/menu/nav-head/src/NavHead.vue'
 import { useState, symbolState } from '@/util/store'
@@ -34,12 +34,6 @@ export default defineComponent({
         NavHead
     },
     setup() {
-        onBeforeMount(() => {
-            //2.组件挂载页面之前执行----onBeforeMount
-        })
-        onMounted(() => {
-            //3.组件挂载到页面之后执行-------onMounted
-        })
         return {
             state: useState(symbolState)
         }
@@ -67,13 +61,17 @@ export default defineComponent({
     //给改变宽度添加动画
     transition: width 0.3s linear;
     //设置滚动条出现时的厚度 这里是为了ie和Firefox浏览器不兼容-webkit-scrollbar
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none;
+    /* firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+
 
     &::-webkit-scrollbar {
         display: none;
     }
 }
+
 .page {
     height: calc(100% - 48px);
     background-color: #f0f2f5;
@@ -83,6 +81,7 @@ export default defineComponent({
         height: 100%;
         background-color: #ffffff;
     }
+
     .page-content {
         height: calc(100% - 48px);
     }

@@ -1,7 +1,7 @@
 export const tableTypes = [
     { prop: 'name', label: "名称", width: "150" },
     { prop: 'roleKey', label: 'key值', width: "150" },
-    { prop: 'status', label: '状态', width: '150', align: "center" },
+    { prop: 'status', label: '状态', width: '150', align: "center", isSlot: true },
     { prop: 'createUserId', label: '创建人ID', width: '100', align: "center" },
     { prop: 'createUserName', label: '创建人姓名', width: '180', align: "center" },
     { prop: 'createTime', label: '创建时间', width: '180' },

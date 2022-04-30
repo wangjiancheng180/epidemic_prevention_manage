@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
-    "element-plus": "^2.1.8",
+    "element-plus": "^2.1.11",
     "lib-flexible": "^0.3.2",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",

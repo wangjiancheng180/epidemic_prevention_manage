@@ -7,6 +7,13 @@
                         :props="{ checkStrictly: true, value: 'id', label: 'name' }" clearable
                         v-model="formData.parentIds" placeholder="不选默认为顶级资源" @change="cascaderChange" />
                 </template>
+                <template #type>
+                    <el-radio-group v-model="formData.type">
+                        <el-radio :label="1">菜单</el-radio>
+                        <el-radio :label="2">按钮</el-radio>
+
+                    </el-radio-group>
+                </template>
             </base-form>
         </common-table>
     </div>
@@ -32,10 +39,12 @@ export default defineComponent({
         // CommonTable的基本配置
         const config = reactive({
             title: '资源列表', //标题
+            formTitle: "资源",
             tableHeight: 400,
             dialogFormVisible: false, //控制dialog
             tableDataName: 'resourceTree' as keyof SystemState,//表格数据源
             formDataName: 'resourceFormData' as keyof SystemState,
+            storeModule: 'system',
             source: 'resource',//路径标识父组件
             isUpdate: false//是否是更新操作
         })

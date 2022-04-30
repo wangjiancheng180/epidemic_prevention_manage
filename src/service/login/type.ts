@@ -1,3 +1,4 @@
+import { SysResourceTree } from "../system/resource/type"
 export interface AccountLoginType {
     username: string,
     password: string,
@@ -7,14 +8,20 @@ interface Role {
     id: number,
     name: string,
     roleKey: string,
+    sort: number,
     status: number,
     description: string,
-    createTime: string,
-    updateTime: string
 }
 
 export interface AccountResultType {
-    username: string
+    id: number,
+    username: string,
+    nickName: string,
+    realName: string,
+    phone: string,
+    status: number,
+    roles: Array<Role>,
+    resourceTrees: Array<SysResourceTree>
 }
 export interface UserInfo {
     id: number,

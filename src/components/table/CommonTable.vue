@@ -8,14 +8,11 @@
             :height="configToRef.tableHeight">
             <el-table-column v-for="(tableType, index) in tableTypesToRef" :prop="tableType.prop"
                 :label="tableType.label" :width="tableType.width" :align="tableType.align || 'left'" :key="index">
-                <template v-if="tableType.prop == 'status'" #default="scope">
-                    <el-tag v-if="scope.row.status == 1" type='success' effect="dark">
-                        启用
-                    </el-tag>
-                    <el-tag v-if="scope.row.status == 0" type='danger' effect="dark">
-                        禁用
-                    </el-tag>
+                <template v-if="tableType.isSlot" #default="scope">
+
+                    <slot :scope="scope.row" :name="tableType.prop"></slot>
                 </template>
+
             </el-table-column>
 
             <el-table-column fixed="right" label="操作" width="120" :align="'center'">
@@ -25,33 +22,39 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog v-model="configToRef.dialogFormVisible" title="新建资源" center :close-on-click-modal="false"
-            width="30%">
+        <el-dialog v-model="configToRef.dialogFormVisible"
+            :title="config.isUpdate ? `修改${configToRef.formTitle}` : `新建${configToRef.formTitle}`" center
+            :close-on-click-modal="false" width="30%">
             <div class="form">
                 <slot></slot>
             </div>
         </el-dialog>
+
+        <slot name="page"></slot>
     </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, toRef, PropType } from 'vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
-import { SystemState } from "@/store/system/type"
+// import { SystemState } from "@/store/system/type"
 import { useStore } from '@/store'
 interface TableTypes {
     prop: string,
     label: string,
     width?: string,
     align?: string
+    isSlot?: boolean,
     [propNames: string]: any
 }
 interface ConfigType {
 
     title: string,
+    formTitle?: string,
     tableHeight?: number,
     dialogFormVisible: boolean,
-    tableDataName: keyof SystemState,
+    tableDataName: any,
+    storeModule: string
     source: string,
     isUpdate: boolean
 }
@@ -76,12 +79,13 @@ export default defineComponent({
         const tableTypesToRef = toRef(props, 'tableTypes');
         const store = useStore();
         //获取表格数据
-        const tableDataToRef = toRef<SystemState, keyof SystemState>(store.state.system, configToRef.value.tableDataName)
+        const tableDataToRef = toRef(store.state[configToRef.value.storeModule], configToRef.value.tableDataName)
 
         //更新数据
         function updateFormData(scope: any) {
             const payload = { source: configToRef.value.source, id: scope.row.id }
-            store.dispatch('system/changeFormData', payload).then(() => {
+            store.dispatch(`${configToRef.value.storeModule}/changeFormData`, payload).then(() => {
+
                 configToRef.value.dialogFormVisible = true;
                 configToRef.value.isUpdate = true;
             })
@@ -89,7 +93,8 @@ export default defineComponent({
         //新建数据
         const createFormData = async () => {
             const payload = { source: configToRef.value.source }
-            await store.dispatch('system/clearFormData', payload)
+            await store.dispatch(`${configToRef.value.storeModule}/clearFormData`, payload)
+            configToRef.value.isUpdate = false;
             configToRef.value.dialogFormVisible = true;
         }
 

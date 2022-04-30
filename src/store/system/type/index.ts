@@ -10,6 +10,8 @@ interface ResourceFormData {
     sourceUrl: string,
     level: number,
     sort: number,
+    type: number,
+    icon: string,
     parentIds?: Array<number>
 }
 
@@ -37,14 +39,14 @@ interface Role extends BaseEnetity {
 
 //角色表单类型
 interface RoleFormData {
-    id?: number,
+    id: number,
     name: string,
     roleKey: string,
     status: number,
     sort: number,
     resourceModelIds?: Array<Array<number>>, //这个用来和cascader选择器绑定数据
     description?: string,
-    resourceIds?: Array<number> //这个用来给后台发送绑定角色的资源id  
+    resourceIds?: Array<number | undefined> //这个用来给后台发送绑定角色的资源id  
 }
 export interface SystemState {
     resourceTree: Array<ResourceTree>,

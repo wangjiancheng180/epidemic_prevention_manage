@@ -1,29 +1,32 @@
 <template>
-    <div class="login-form">
-        <el-tabs stretch type="border-card" v-model="activeName">
-            <el-tab-pane name="first">
-                <template #label>
-                    <span class="custom-tabs-label">
-                        <el-icon color="black" size="40">
-                            <UserFilled />
-                        </el-icon>
-                        <span>用户名登陆</span>
-                    </span>
-                </template>
-                <login-form></login-form>
-            </el-tab-pane>
-            <el-tab-pane name="second">
-                <template #label>
-                    <span class="custom-tabs-label">
-                        <el-icon color="black" size="40">
-                            <Iphone />
-                        </el-icon>
-                        <span>手机号登陆</span>
-                    </span>
-                </template>
-            </el-tab-pane>
-        </el-tabs>
+    <div class="login">
+        <div class="login-form">
+            <el-tabs stretch type="border-card" v-model="activeName">
+                <el-tab-pane name="first">
+                    <template #label>
+                        <span class="custom-tabs-label">
+                            <el-icon color="black" size="40">
+                                <UserFilled />
+                            </el-icon>
+                            <span>用户名登陆</span>
+                        </span>
+                    </template>
+                    <login-form></login-form>
+                </el-tab-pane>
+                <el-tab-pane name="second">
+                    <template #label>
+                        <span class="custom-tabs-label">
+                            <el-icon color="black" size="40">
+                                <Iphone />
+                            </el-icon>
+                            <span>手机号登陆</span>
+                        </span>
+                    </template>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
     </div>
+
 </template>
 
 <script lang='ts'>
@@ -60,19 +63,24 @@ export default defineComponent({
 
 </script>
 <style scoped lang='less'>
+.login {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
 .login-form {
     .rem2px(width, 8);
-    // .rem2px(height, 4);
     border: 1px solid rebeccapurple;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
+
 .custom-tabs-label {
     .el-icon {
         vertical-align: middle;
     }
+
     span {
         vertical-align: middle;
         margin-left: 10px;

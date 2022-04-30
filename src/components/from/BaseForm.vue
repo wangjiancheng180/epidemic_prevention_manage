@@ -23,7 +23,6 @@
 <script lang='ts'>
 import { defineComponent, toRef, PropType, ref } from 'vue'
 import { useStore } from '@/store/index'
-import { SystemState } from "@/store/system/type"
 import { ElForm, ElMessage } from 'element-plus'
 
 interface FormItemType {
@@ -36,9 +35,11 @@ interface FormItemType {
 }
 interface ConfigType {
     title: string,
+    formTitle?: string,
     dialogFormVisible: boolean,
-    tableDataName: keyof SystemState,
-    formDataName: keyof SystemState,
+    tableDataName: any,
+    formDataName: any,
+    storeModule: string,
     source: string,
     isUpdate: boolean
 }
@@ -68,7 +69,7 @@ export default defineComponent({
 
         const store = useStore();
         //拿到表单数据
-        const formData = toRef(store.state.system, configToRef.value.formDataName)
+        const formData = toRef(store.state[configToRef.value.storeModule], configToRef.value.formDataName)
 
         //获得form对象
         const elForm = ref<InstanceType<typeof ElForm>>();

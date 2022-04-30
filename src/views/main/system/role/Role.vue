@@ -1,6 +1,16 @@
 <template>
     <div>
         <common-table :table-types="tableTypes" :config="config" @delete-data="deleteData">
+            <template #status="scope">
+                <div v-for="itme in scope" :key="itme.id">
+                    <el-tag v-if="itme.status == 1" type='success' effect="dark">
+                        启用
+                    </el-tag>
+                    <el-tag v-if="itme.status == 0" type='danger' effect="dark">
+                        禁用
+                    </el-tag>
+                </div>
+            </template>
             <template #default>
                 <base-form :form-item-types="formItemTypes" :config="config" @commit-data="commitData" :rules="rules">
                     <template #resources>
@@ -31,6 +41,7 @@ import { useStore } from '@/store/index'
 import { rules } from './hooks/rule'
 import { createRole, updateRole, deleteRole } from '@/service/system/role'
 import { ElMessage } from 'element-plus'
+
 export default defineComponent({
     name: '',
     components: {
@@ -40,10 +51,12 @@ export default defineComponent({
     setup() {
         const config = reactive({
             title: '角色列表', //标题
+            formTitle: "角色",
             tableHeight: 400,
             dialogFormVisible: false, //控制dialog
             tableDataName: 'roleList' as keyof SystemState,//表格数据源
             formDataName: 'roleFormData' as keyof SystemState,
+            storeModule: 'system',//vuex的store模块
             source: 'role',//路径标识父组件
             isUpdate: false//是否是更新操作
         })
@@ -59,24 +72,45 @@ export default defineComponent({
         const formData = toRef(store.state.system, 'roleFormData')
         const props = { multiple: true, value: 'id', label: 'name' }
         const options = toRef(store.state.system, 'resourceTree')
+        //当前登录用户的信息
+        const userToRef = toRef(store.state, 'user')
+        //判断当前修改的角色是否跟当前登录的用户有所关联
+        function isOrNot(roleId: number): boolean {
+
+            for (const role of userToRef.value.roleDtos) {
+                if (role.id === roleId) {
+                    return true
+                }
+            }
+            return false
+        }
 
 
         const commitData = async () => {
             //将与cascade选择器绑定的值转换成后台可提交的数据格式
             if (formData.value.resourceModelIds) {
                 //给resourceIds重新赋值前都要清空原来的元素
-                formData.value.resourceIds?.splice(0)
+                formData.value.resourceIds = []
                 for (let item of formData.value.resourceModelIds) {
-                    const id = item[item.length - 1];
-                    if (id) {
-                        formData.value.resourceIds?.push(id);
+                    for (const id of item) {
+                        if (formData.value.resourceIds.includes(id)) {
+                            continue;
+                        }
+                        formData.value.resourceIds.push(id)
                     }
                 }
             }
-            console.log(formData.value)
             if (config.isUpdate) {
+                // console.log(formData.value)
                 const result = await updateRole(formData.value);
                 if (result.data) {
+                    //这里比对一下修改的角色跟当前登录的用户是否有关
+                    if (isOrNot(formData.value.id)) {
+                        //改变vuex中的user
+                        store.dispatch('changeUser')
+                    }
+
+
                     store.dispatch('system/changeTableData', payload).then(() => {
                         //关闭dialog
                         config.dialogFormVisible = false;
@@ -86,8 +120,9 @@ export default defineComponent({
                     ElMessage.error("修改失败~")
                 }
             } else {
+                // console.log(formData.value)
                 const result = await createRole(formData.value);
-                if (result.data != 0) {
+                if (result.data != -1) {
                     //在vuex中改变角色列表
                     store.dispatch('system/changeTableData', payload).then(() => {
                         //关闭dialog
@@ -102,6 +137,12 @@ export default defineComponent({
         const deleteData = async (id: number) => {
             const result = await deleteRole(id);
             if (result.data) {
+                //这里比对一下修改的角色跟当前登录的用户是否有关
+                if (isOrNot(id)) {
+                    //改变vuex中的user
+                    store.dispatch('changeUser')
+
+                }
                 store.dispatch('system/changeTableData', payload).then(() => {
                     //提示删除成功
                     ElMessage.success("删除成功~")

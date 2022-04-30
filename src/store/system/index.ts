@@ -4,7 +4,7 @@ import { RootStateType } from "../type"
 import { queryResourceTree, queryResourceById } from "@/service/system/resource"
 import { queryRoleList, queryRoleById } from "@/service/system/role"
 //这里Module要传入两个类型一个是本模块的state类型和节点的state类型
-const systemMoule: Module<SystemState, RootStateType> = {
+const systemModule: Module<SystemState, RootStateType> = {
     namespaced: true,
     state: () => ({
         //资源树结合
@@ -18,6 +18,8 @@ const systemMoule: Module<SystemState, RootStateType> = {
             sourceUrl: '',
             level: 1,
             sort: 1,
+            type: 1,
+            icon: '',
             parentIds: []
         },
         //角色集合
@@ -51,6 +53,8 @@ const systemMoule: Module<SystemState, RootStateType> = {
             state.resourceFormData.sourceUrl = '';
             state.resourceFormData.level = 1;
             state.resourceFormData.sort = 1;
+            state.resourceFormData.type = 1;
+            state.resourceFormData.icon = '';
             state.resourceFormData.parentIds = []
         },
 
@@ -130,4 +134,4 @@ const systemMoule: Module<SystemState, RootStateType> = {
 
     }
 }
-export default systemMoule;
+export default systemModule;
