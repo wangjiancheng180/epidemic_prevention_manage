@@ -102,11 +102,15 @@ export default defineComponent({
 
 </script>
 <style scoped lang='less'>
+// .el-form {
+//     max-height: 500px;
+// }
+
 .el-form-item {
     font-weight: bold;
 
     .dialog-footer {
-        padding: 0 0 0 50px;
+        padding: 0 0 0 100px;
     }
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
     <div>
         <common-table :table-types="tableTypes" :config="config" @delete-data="deleteData">
-            <template #status="scope">
-                <div v-for="itme in scope" :key="itme.id">
-                    <el-tag v-if="itme.status == 1" type='success' effect="dark">
-                        启用
-                    </el-tag>
-                    <el-tag v-if="itme.status == 0" type='danger' effect="dark">
-                        禁用
-                    </el-tag>
-                </div>
+            <template #status="{ item }">
+
+                <el-tag v-if="item == 1" type='success' effect="dark">
+                    启用
+                </el-tag>
+                <el-tag v-if="item == 0" type='danger' effect="dark">
+                    禁用
+                </el-tag>
+
             </template>
             <template #default>
                 <base-form :form-item-types="formItemTypes" :config="config" @commit-data="commitData" :rules="rules">

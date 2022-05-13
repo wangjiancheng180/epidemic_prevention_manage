@@ -20,11 +20,9 @@
                     <el-dropdown>
                         <!-- 头像 -->
                         <div class="avtar-box">
-                            <el-avatar
-                                size="default"
+                            <el-avatar size="default"
                                 src="https://img-blog.csdnimg.cn/img_convert/c44557e91e69011385a02e707505b19a.png"
-                                class="base-avtar"
-                            ></el-avatar>
+                                class="base-avtar"></el-avatar>
                         </div>
 
                         <template #dropdown>
@@ -101,14 +99,16 @@ export default defineComponent({
 }
 
 .head-left {
-    height: 150px;
+    height: 200px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
     .icon-box {
         cursor: pointer;
     }
+
     .base-icon-unfold {
         transform: rotate(180deg);
     }
@@ -116,10 +116,11 @@ export default defineComponent({
 
 .user-information {
     display: flex;
-    height: 150px;
+    height: 200px;
     flex-direction: row-reverse;
     justify-content: flex-start;
     align-items: center;
+
     .el-img {
         width: 100px;
         height: 100px;

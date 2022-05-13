@@ -10,11 +10,16 @@
                 :label="tableType.label" :width="tableType.width" :align="tableType.align || 'left'" :key="index">
                 <template v-if="tableType.isSlot" #default="scope">
 
-                    <slot :scope="scope.row" :name="tableType.prop"></slot>
+                    <slot :item="scope.row[tableType.prop]" :name="tableType.prop"></slot>
                 </template>
 
             </el-table-column>
 
+            <el-table-column v-if="configToRef.isTrail" fixed="right" label="轨迹" width="120" :align="'center'">
+                <template #default="scope">
+                    <slot :item="scope.row" name="trail"></slot>
+                </template>
+            </el-table-column>
             <el-table-column fixed="right" label="操作" width="120" :align="'center'">
                 <template #default="scope">
                     <el-button type="text" :icon="Edit" @click="updateFormData(scope)"></el-button>
@@ -56,7 +61,8 @@ interface ConfigType {
     tableDataName: any,
     storeModule: string
     source: string,
-    isUpdate: boolean
+    isUpdate: boolean,
+    isTrail?: boolean
 }
 export default defineComponent({
     name: 'CommonTable',
@@ -143,5 +149,44 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     padding: 0 210px 0 0;
+    max-height: 1200px;
+    overflow-y: auto;
+    //设置滚动条出现时的厚度 这里是为了ie和Firefox浏览器不兼容-webkit-scrollbar
+    // scrollbar-width: none;
+    // /* firefox */
+    // -ms-overflow-style: none;
+
+    /* IE 10+ */
+    // &::-webkit-scrollbar {
+    //     display: none;
+    // }
+
+    &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 20px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        background-color: skyblue;
+        background-image: -webkit-linear-gradient(45deg,
+                rgba(255, 255, 255, 0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.2) 75%,
+                transparent 75%,
+                transparent);
+    }
+
+    &::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #ededed;
+        border-radius: 10px;
+    }
 }
 </style>

@@ -1,6 +1,7 @@
 import { BaseEnetity } from '@/store/type';
 import { Page } from '../../type'
 import { ClazzDto } from '../clazz/type';
+import { CollegeDto } from '../college/type';
 
 export interface StudentDto extends BaseEnetity {
     id: number,
@@ -17,7 +18,7 @@ export interface StudentDto extends BaseEnetity {
     //疫苗接种清况，0：未接种，1：已接种但为接种完
     vaccinationTimes: number,
     //现居地址
-    temporaryHo: string,
+    temporaryHome: string,
     //家乡
     hometown: string,
     //学生端用来登录
@@ -29,7 +30,9 @@ export interface StudentDto extends BaseEnetity {
     //出生日期
     birthday: string,
     //班级信息
-    clazzDto: ClazzDto
+    clazzDto: ClazzDto,
+
+    collegeDtos: CollegeDto
 }
 export interface StudentPage extends Page {
     records: Array<StudentDto>
@@ -61,7 +64,7 @@ export interface StudentCreateBean {
     // //疫苗接种清况，0：未接种，1：已接种但为接种完
     // vaccinationTimes: number,
     //现居地址
-    temporaryHo: string,
+    temporaryHome: string,
     //家乡
     hometown: string,
     //学生端用来登录

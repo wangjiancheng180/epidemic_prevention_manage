@@ -32,7 +32,8 @@ const universityModule: Module<UniversityState, RootStateType> = {
             name: '',
             sex: '',
             age: 0,
-            temporaryHo: '',
+            vaccinationTimes: null,
+            temporaryHome: '',
             //家乡
             hometown: '',
             //学生端用来登录
@@ -44,7 +45,7 @@ const universityModule: Module<UniversityState, RootStateType> = {
             //出生日期
             birthday: '',
             //关联班级
-            clazzId: 0
+            clazzId: null
         }
     }),
     mutations: {
@@ -91,22 +92,23 @@ const universityModule: Module<UniversityState, RootStateType> = {
             state.studentFormData = { ...payload }
         },
         clearStudentFormData(state) {
-            state.studentFormData = {
-                ...{
-                    id: 0,
-                    studentNo: '',
-                    name: '',
-                    sex: '',
-                    age: 0,
-                    temporaryHo: '',
-                    hometown: '',
-                    account: '',
-                    password: '',
-                    entrance: '',
-                    birthday: '',
-                    clazzId: 0
-                }
+            state.studentFormData =
+            {
+                id: 0,
+                studentNo: '',
+                name: '',
+                sex: '',
+                age: 0,
+                vaccinationTimes: null,
+                temporaryHome: '',
+                hometown: '',
+                account: '',
+                password: '',
+                entrance: '',
+                birthday: '',
+                clazzId: null
             }
+
         }
 
     },

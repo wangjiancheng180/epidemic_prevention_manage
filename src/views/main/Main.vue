@@ -1,7 +1,7 @@
 <template>
     <div class="main">
-        <el-container>
-            <el-aside :width="state.isCollapse ? '65px' : '200px'" class="main-content">
+        <el-container class="main-content">
+            <el-aside :width="state.isCollapse ? '65px' : '200px'">
                 <side-menu></side-menu>
             </el-aside>
             <el-container class="page">
@@ -50,7 +50,13 @@ export default defineComponent({
     height: 100%;
 }
 
-.main-content {
+.main-content,
+.page {
+    height: 100%;
+}
+
+
+.el-aside {
     overflow-x: hidden;
     overflow-y: auto;
     line-height: 200px;
@@ -72,18 +78,65 @@ export default defineComponent({
     }
 }
 
-.page {
+
+
+
+.page-header {
+    padding: 0px;
+    // height: 100%;
+    // background-color: #ffffff;
+}
+
+.page-content {
     height: calc(100% - 48px);
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 20px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 20px;
+        background-color: skyblue;
+        background-image: -webkit-linear-gradient(45deg,
+                rgba(255, 255, 255, 0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.2) 75%,
+                transparent 75%,
+                transparent);
+    }
+
+    &::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #ededed;
+        border-radius: 20px;
+    }
+}
+
+// .page-content:hover {
+
+// }
+
+.el-footer {
+    display: flex;
+    color: #333;
+    text-align: center;
+    align-items: center;
+}
+
+.el-header {
+    height: 200px !important;
+}
+
+.el-main {
+    color: #333;
     background-color: #f0f2f5;
-
-    .page-header {
-        // padding: 0 0 0 0;
-        height: 100%;
-        background-color: #ffffff;
-    }
-
-    .page-content {
-        height: calc(100% - 48px);
-    }
 }
 </style>

@@ -11,12 +11,16 @@
             </query-form>
         </div>
         <common-table :config="config" :table-types="tableTypes" @delete-data="deleteData">
-            <template #collegeDtos="clazz">
-                <span v-for="item in clazz" :key="item.id">
-                    <span v-for="college in item.collegeDtos" :key="college.id">
-                        {{ '/' + college.name }}
-                    </span>
+            <template #collegeDtos="{ item }">
+                <!-- <span v-for="item in clazz" :key="item.id"> -->
+                <span v-for="(college, index) in item" :key="index">
+
+                    {{ '/' + college.name }}
+
+                    <!-- {{ '/' + college.name }} -->
+
                 </span>
+                <!-- </span> -->
             </template>
             <template #default>
                 <base-form :form-item-types="formTypes" :config="config" @commit-data="commitData">
@@ -84,7 +88,7 @@ export default defineComponent({
             name: '',
             collegeId: 0,
             page: 1,
-            size: 10,
+            size: 5,
 
         })
         const store = useStore();

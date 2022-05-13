@@ -3,7 +3,7 @@ export const tableTypes = [
     // { prop: 'address', label: '地址', width: "250" },
     // { prop: 'telephone', label: '联系电话', width: '150' },
     // { prop: 'level', label: '层级', width: '100', align: "center" },
-    { prop: 'collegeDtos', label: "所属院校", with: "250", isSlot: true },
+    { prop: 'collegeDtos', label: "所属院校", width: "450", isSlot: true },
     // { prop: 'createUserId', label: '创建人ID', width: '80', align: "center" },
     { prop: 'createUserName', label: '创建人姓名', width: '150', align: "center" },
     { prop: 'createTime', label: '创建时间', width: '180' },

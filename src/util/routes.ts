@@ -22,7 +22,6 @@ export function dynamicAddRoute(): Array<RouteRecordRaw> {
     }
     const routeList: Set<RouteRecordRaw> = new Set();
     const user = localCache.getCache('user')
-
     //筛选路由
     findRouteFun(user.resourceTrees, routeList)
     let routes = Array.from(routeList);

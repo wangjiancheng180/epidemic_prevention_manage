@@ -3,10 +3,8 @@
         <el-menu active-text-color="#ffd04b" background-color="#060716" class="el-menu-vertical" text-color="#fff"
             :collapse="isCollapse" :router="true">
             <div class="logo">
-                <div class="img">
-                    <el-image :src="logo_url" :fit="'fill'"></el-image>
-                </div>
-                <span class="title" v-show="!isCollapse">万无疫失</span>
+                <div class="icon"><i class="iconfont">&#xe621;</i></div>
+                <div class="title" v-show="!isCollapse">万无疫失</div>
             </div>
             <tree-menu :children-list="user.resourceTrees"></tree-menu>
         </el-menu>
@@ -61,10 +59,9 @@ export default defineComponent({
     // justify-content: space-evenly;
     align-items: center;
 
-    .img {
-        width: 100px;
-        height: 100px;
-        // background-color: aqua;
+
+    .icon {
+        color: white;
         margin: 0 20px 0 0;
     }
 
@@ -72,6 +69,7 @@ export default defineComponent({
         font-size: 60px;
         font-weight: 700;
         color: white;
+
     }
 }
 

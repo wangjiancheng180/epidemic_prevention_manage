@@ -1,5 +1,5 @@
 <template>
-    <div class="queryform" :style="configToRef?.style">
+    <div class="queryform">
         <el-form :inline="true" size="large" label-position="right" label-width="80px" :rules="rulesToRef"
             :model="queryBeanToRef" ref="elForm">
             <template v-for="(formItemType, index) in formTypesToRef" :key="index">
@@ -108,11 +108,18 @@ export default defineComponent({
 
 .el-form {
     width: 100%;
+    // display: flex;
+    // align-items: center;
+    // flex-wrap: wrap;
+    // justify-content: space-around;
 }
 
 .queryform {
+    padding: 20px 0 0 0;
     background-color: #ffffff;
     display: flex;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
+    height: 100%;
 }
 </style>
