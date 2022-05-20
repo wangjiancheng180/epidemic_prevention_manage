@@ -48,9 +48,35 @@ interface RoleFormData {
     description?: string,
     resourceIds?: Array<number | undefined> //这个用来给后台发送绑定角色的资源id  
 }
+
+//用户列表
+interface User {
+    id: number,
+    username: string,
+    nickName: string,
+    realName: string,
+    sex: string,
+    phone: string,
+    status: number,
+    roleDtos: Array<Role>,
+    // roleIds:Array<number>
+}
+
+interface UserFormData {
+    id: number | null,
+    username: string,
+    nickName: string,
+    realName: string,
+    sex: string,
+    phone: string,
+    status: number,
+    roleIds: Array<number>
+}
 export interface SystemState {
     resourceTree: Array<ResourceTree>,
     resourceFormData: ResourceFormData,
     roleList: Array<Role>,
-    roleFormData: RoleFormData
+    roleFormData: RoleFormData,
+    userList: Array<User>,
+    userFormData: UserFormData
 }

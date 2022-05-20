@@ -1,4 +1,4 @@
-import { myRequest } from "../../index";
+import { myRequest, excelRequest } from "../../index";
 import { ResultType } from "../../type";
 import { StudentCreateBean, StudentPage, StudentDto, StudentQueryBean } from "./type";
 
@@ -7,7 +7,8 @@ enum StudentApi {
     QUERY_STUDENT_BY_ID = '/student/queryStudentById',
     CREATE_STUDENT = '/student/createStudent',
     UPDATE_STUDENT = '/student/updateStudent',
-    DELETE_STUDENT = '/student/deleteStudent'
+    DELETE_STUDENT = '/student/deleteStudent',
+    EXPORT_STUDENT_LIST = '/easyExcel/exportStudentList'
 }
 
 export function queryStudentPage(bean: StudentQueryBean): Promise<ResultType<StudentPage>> {
@@ -40,5 +41,13 @@ export function updateStudent(bean: StudentCreateBean): Promise<ResultType<boole
 export function deleteStudent(id: number): Promise<ResultType<boolean>> {
     return myRequest.delete<ResultType<boolean>>({
         url: `${StudentApi.DELETE_STUDENT}?id=${id}`
+    })
+}
+
+export function exportStudentList(bean: StudentQueryBean): Promise<any> {
+    return excelRequest.post<any>({
+        url: StudentApi.EXPORT_STUDENT_LIST,
+        data: bean,
+        responseType: 'blob'
     })
 }

@@ -31,6 +31,15 @@
             </query-form>
         </div>
         <common-table :config="config" :table-types="tableTypes" @delete-data="deleteData">
+            <template #excel>
+                <el-button type="warning" class="exportExcel" plain @click="exportFormData()">导出</el-button>
+                <el-upload action="http://localhost:9001/api/easyExcel/importStudentexcel" :headers="headers"
+                    :on-success="onSuceess" :on-error="onError"
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                    <el-button type="primary" plain>导入</el-button>
+                </el-upload>
+            </template>
+
             <template #collegeDtos="{ item }">
                 <span v-for="(college, index) in item" :key="index">
                     {{ '/' + college.name }}
@@ -110,18 +119,19 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, toRef, ref, watch } from 'vue'
+import { defineComponent, reactive, toRef, ref, watch, onMounted } from 'vue'
 import CommonTable from '@/components/table/CommonTable.vue'
 import QueryForm from '@/components/from/QueryForm.vue'
 import BaseForm from '@/components/from/BaseForm.vue'
 import PageHelp from '@/components/ipage/PageHelp.vue'
 import PositionMap from '@/components/map/PositionMap.vue'
 import { tableTypes, queryFormTypes, formTypes } from './config/type';
-import { ElCascader, ElMessage } from 'element-plus'
+import { ElCascader, ElMessage, UploadFile } from 'element-plus'
 import { useStore } from '@/store'
-import { createStudent, updateStudent, deleteStudent } from '@/service/university/student'
+import { createStudent, updateStudent, deleteStudent, exportStudentList } from '@/service/university/student'
 import { dateFormat } from '@/util/tool'
 import { StudentDto } from '@/service/university/student/type'
+import localCache from '@/util/cache'
 interface ClazzOption {
     id: 0,
     name: ''
@@ -356,6 +366,33 @@ export default defineComponent({
             isPosition.value = true
             setTimeout(() => { positionMap.value.playback(student) }, 100)
         }
+
+        function exportFormData() {
+            exportStudentList(queryBean);
+        }
+
+        //文件上传设置响应头
+        let headers = ref({});
+        onMounted(() => {
+            const token = localCache.getCache("token")
+            headers.value = { Authorization: `Bearer ${token}` }
+        })
+        //上传成功钩子
+        function onSuceess(response: any, uploadFile: UploadFile) {
+            if (response) {
+                store.dispatch(`${config.storeModule}/changeTableData`, payload).then(() => {
+                    ElMessage.success(`${uploadFile.name}上传成功！`)
+                })
+
+            } else {
+                ElMessage.error(`${uploadFile.name}上传失败！`)
+            }
+        }
+
+        function onError(response: any, uploadFile: UploadFile) {
+            ElMessage.error(`${uploadFile.name}上传失败！`)
+        }
+
         return {
             config,
             tableTypes,
@@ -381,7 +418,11 @@ export default defineComponent({
             searcPosition,
             positionMap,
             playback,
-            positionTitle
+            positionTitle,
+            exportFormData,
+            headers,
+            onSuceess,
+            onError
         }
     },
 })
@@ -403,5 +444,9 @@ export default defineComponent({
 
 .el-select {
     width: 735px;
+}
+
+.exportExcel {
+    margin: 0 20px 0 0;
 }
 </style>

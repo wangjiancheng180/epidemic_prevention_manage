@@ -107,6 +107,7 @@ export default defineComponent({
 
     .icon-box {
         cursor: pointer;
+        margin: 0 0 0 70px;
     }
 
     .base-icon-unfold {
@@ -117,6 +118,7 @@ export default defineComponent({
 .user-information {
     display: flex;
     height: 200px;
+    margin: 0 70px 0 0;
     flex-direction: row-reverse;
     justify-content: flex-start;
     align-items: center;

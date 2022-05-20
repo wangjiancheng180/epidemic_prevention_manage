@@ -42,9 +42,9 @@ export interface StudentQueryBean {
     studentNo: string,
     name: string,
     sex: string,
-    age: number,
-    clazzId: number,
-    collegeId: number,
+    age?: number,
+    clazzId: number | null,
+    collegeId: number | null,
     page: number,
     size: number
 }

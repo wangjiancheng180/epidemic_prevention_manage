@@ -148,7 +148,7 @@ export default defineComponent({
                     ElMessage.success("删除成功~")
                 })
             } else {
-                ElMessage.error("删除失败~")
+                ElMessage.error(result.message)
             }
         }
         return {

@@ -3,6 +3,7 @@ import { SystemState } from "./type"
 import { RootStateType } from "../type"
 import { queryResourceTree, queryResourceById } from "@/service/system/resource"
 import { queryRoleList, queryRoleById } from "@/service/system/role"
+import { queryUserInfo, queryUserById } from "@/service/system/user"
 //这里Module要传入两个类型一个是本模块的state类型和节点的state类型
 const systemModule: Module<SystemState, RootStateType> = {
     namespaced: true,
@@ -34,6 +35,19 @@ const systemModule: Module<SystemState, RootStateType> = {
             resourceModelIds: [],
             description: '',
             resourceIds: []
+        },
+        //用户列表
+        userList: [],
+        //用户表单
+        userFormData: {
+            id: null,
+            username: '',
+            nickName: '',
+            realName: '',
+            sex: '',
+            phone: '',
+            status: 1,
+            roleIds: []
         }
     }),
     mutations: {
@@ -82,7 +96,25 @@ const systemModule: Module<SystemState, RootStateType> = {
             state.roleFormData.resourceIds = [];
             state.roleFormData.resourceModelIds = []
         }
-
+        ,
+        changeUserList(state, payload) {
+            state.userList = payload
+        },
+        changeUserFormData(state, payload) {
+            state.userFormData = { ...payload }
+        },
+        clearUserFormData(state) {
+            state.userFormData = {
+                id: null,
+                username: '',
+                nickName: '',
+                realName: '',
+                sex: '',
+                phone: '',
+                status: 1,
+                roleIds: []
+            }
+        }
     },
     actions: {
         //   act:{
@@ -101,6 +133,12 @@ const systemModule: Module<SystemState, RootStateType> = {
                     context.commit('changeRoleList', result.data)
                     break;
                 }
+
+                case 'userList': {
+                    const result = await queryUserInfo();
+                    context.commit('changeUserList', result.data);
+                    break;
+                }
             }
         },
 
@@ -116,6 +154,17 @@ const systemModule: Module<SystemState, RootStateType> = {
                     context.commit('changeRoleFormData', result.data)
                     break;
                 }
+                case 'user': {
+                    const result = await queryUserById(payload.id)
+                    if (result.data) {
+                        result.data.roleIds = []
+                        result.data?.roleDtos.forEach((item) => {
+                            result.data?.roleIds.push(item.id)
+                        })
+                    }
+                    context.commit('changeUserFormData', result.data)
+                    break;
+                }
 
             }
         },
@@ -127,6 +176,9 @@ const systemModule: Module<SystemState, RootStateType> = {
                     break;
                 case 'role':
                     context.commit('clearRoleFormDta')
+                    break;
+                case 'user':
+                    context.commit('clearUserFormData')
                     break;
             }
         }

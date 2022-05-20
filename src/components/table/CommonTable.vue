@@ -2,7 +2,12 @@
     <div class="table">
         <div class="table-head">
             <span class="title">{{ configToRef.title }}</span>
-            <el-button type="success" plain @click="createFormData()">新建</el-button>
+            <div class="handle">
+                <el-button type="success" plain @click="createFormData()">新建</el-button>
+                <slot name="excel"></slot>
+                <!-- <slot name="importExcel"></slot> -->
+            </div>
+
         </div>
         <el-table :data="tableDataToRef" :border="true" row-key="id" style="width: 100%"
             :height="configToRef.tableHeight">
@@ -142,6 +147,12 @@ export default defineComponent({
     .title {
         font-size: 80px;
         font-weight: 700;
+    }
+
+    .handle {
+        width: 30%;
+        display: flex;
+        flex-direction: row-reverse;
     }
 }
 

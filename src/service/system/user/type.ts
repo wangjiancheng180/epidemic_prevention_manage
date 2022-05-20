@@ -6,9 +6,21 @@ export interface User {
     username: string,
     nickName: string,
     realName: string,
-    sex: number,
+    sex: string,
     phone: string,
     status: number,
     roleDtos: Array<SysRole>,
     resourceTrees: Array<SysResourceTree>,
+    roleIds: Array<number>
+}
+
+export interface UserInfoCreateBean {
+    id: number | null,
+    username: string,
+    nickName: string,
+    realName: string,
+    sex: string,
+    phone: string,
+    status: number,
+    roleIds: Array<number>
 }
