@@ -67,12 +67,17 @@ export default defineComponent({
     display: flex;
     width: 100%;
     height: 100vh;
+    background-image: url("../../assets/your-name.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
     justify-content: center;
     align-items: center;
 }
 
 .login-form {
     .rem2px(width, 8);
+    opacity: 0.8;
     border: 1px solid rebeccapurple;
 }
 

@@ -8,6 +8,8 @@ export const myRequest = new MyRequest({
     baseURL: process.env.VUE_APP_BASEURL,
     //设置请求超时
     timeout: Number(process.env.VUE_APP_TIMEOUT),
+    //允许带上cookie
+    withCredentials: true,
     //设置拦截器
     myInterceptorManager: {
         requestInterceptor: (config) => {
@@ -57,6 +59,7 @@ export const excelRequest = new MyRequest({
     baseURL: process.env.VUE_APP_BASEURL,
     //设置请求超时
     timeout: Number(process.env.VUE_APP_TIMEOUT),
+    isShowLoading: false,
     //设置拦截器
     myInterceptorManager: {
         requestInterceptor: (config) => {

@@ -107,7 +107,7 @@ export default defineComponent({
                     //这里比对一下修改的角色跟当前登录的用户是否有关
                     if (isOrNot(formData.value.id)) {
                         //改变vuex中的user
-                        store.dispatch('changeUser')
+                        store.dispatch('changeUser', { isFlush: true })
                     }
 
 
@@ -140,7 +140,7 @@ export default defineComponent({
                 //这里比对一下修改的角色跟当前登录的用户是否有关
                 if (isOrNot(id)) {
                     //改变vuex中的user
-                    store.dispatch('changeUser')
+                    store.dispatch('changeUser', { isFlush: true })
 
                 }
                 store.dispatch('system/changeTableData', payload).then(() => {

@@ -6,13 +6,17 @@
     <el-form-item label="密码" prop="password" size="large" class="form-item">
       <el-input v-model="loginForm.password" size="large" type="password" show-password />
     </el-form-item>
-    <el-form-item label="验证码" prop="code" size="large" class="form-item">
-      <el-input v-model="loginForm.code" size="large" class="code" />
-      <el-image filt="fill" class="image"></el-image>
+    <el-form-item label="验证" prop="code" size="large" class="form-item">
+      <!-- <el-input v-model="loginForm.code" size="large" class="code" />
+      <el-image filt="fill" class="image"></el-image> -->
+      <v-code :complete="complete" @success="success" style="width: 100%;"></v-code>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="large" @click="submit">立即登录</el-button>
-      <el-button type="primary" size="large" @click="resetForm">重置</el-button>
+      <div class="submit">
+        <el-button type="primary" size="large" @click="submit" :disabled="!complete">立即登录</el-button>
+        <el-button type="primary" size="large" @click="resetForm">重置</el-button>
+      </div>
+
     </el-form-item>
   </el-form>
 </template>
@@ -24,16 +28,18 @@ import { ElForm, ElMessage } from "element-plus"
 import { login } from '@/service/login'
 import { useRouter } from 'vue-router'
 import localeCache from '@/util/cache'
-
+import VCode from '@/components/captcha/puzzle-captcha/VCode.vue'
 
 
 export default defineComponent({
   name: 'LoginForm',
+  components: {
+    VCode
+  },
   setup() {
     const loginForm = reactive({
       username: "",
       password: "",
-      code: ""
     })
     //声明elFormRef
     const elFormRef = ref<InstanceType<typeof ElForm>>();
@@ -56,10 +62,13 @@ export default defineComponent({
             switch (result.code) {
               case 1:
                 localeCache.setCache("user", result.data)
+
                 //这里只需要在成功登录的时候进行页面跳转
                 router.push({
                   name: "Main"
                 })
+                //这里需要将验证码按钮重置
+                complete.value = false;
                 break;
               default:
                 //其他时候都进行错误提示
@@ -86,12 +95,18 @@ export default defineComponent({
     onMounted(() => {
       //3.组件挂载到页面之后执行-------onMounted
     })
+    const complete = ref(false)
+    function success() {
+      complete.value = true;
+    }
     return {
       loginForm,
       loginFormRules,
       elFormRef,
       resetForm,
-      submit
+      submit,
+      complete,
+      success
     }
   },
 })
@@ -100,16 +115,12 @@ export default defineComponent({
 <style scoped lang='less'>
 .form-item {
   font-weight: bold;
+}
 
-  .code {
-    width: 500px;
-  }
+.submit {
+  width: 95%;
+  display: flex;
+  justify-content: center;
 
-  .image {
-    margin-left: 160px;
-    width: 500px;
-
-    border-radius: 20px;
-  }
 }
 </style>

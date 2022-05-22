@@ -6,7 +6,7 @@
             </el-aside>
             <el-container class="page">
                 <el-header class="page-header">
-                    <nav-head></nav-head>
+                    <nav-head @logout="logout"></nav-head>
                 </el-header>
                 <el-main class="page-content">
                     <router-view v-slot="{ Component }">
@@ -27,6 +27,8 @@ import { defineComponent } from 'vue'
 import SideMenu from '@/components/menu/side-menu/src/SideMenu.vue'
 import NavHead from '@/components/menu/nav-head/src/NavHead.vue'
 import { useState, symbolState } from '@/util/store'
+import localCache from '@/util/cache'
+import { useRouter } from 'vue-router'
 export default defineComponent({
     name: 'Main',
     components: {
@@ -34,8 +36,16 @@ export default defineComponent({
         NavHead
     },
     setup() {
+        const router = useRouter();
+        function logout() {
+            localCache.clearCache();
+
+            router.push("/");
+        }
+
         return {
-            state: useState(symbolState)
+            state: useState(symbolState),
+            logout
         }
     },
 })

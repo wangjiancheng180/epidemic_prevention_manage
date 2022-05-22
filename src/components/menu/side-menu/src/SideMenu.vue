@@ -31,7 +31,7 @@ export default defineComponent({
         })
 
         const store = useStore()
-        store.dispatch('changeUser')
+        store.dispatch('changeUser', { isFlush: false })
         const user = toRef(store.state, "user")
         //取出state当中的isCollapse
         const state = useState(symbolState);

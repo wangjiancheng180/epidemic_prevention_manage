@@ -56,7 +56,6 @@ class MyRequest {
             (result) => {
                 //这里将显示的信息加载关闭
                 this.loadingInstance?.close();
-
                 //将得到的响应返回(这里返回data就可以和我们自定义的结果接口对应了)
                 return result.data;
             },

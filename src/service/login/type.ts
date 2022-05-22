@@ -1,8 +1,7 @@
 import { SysResourceTree } from "../system/resource/type"
 export interface AccountLoginType {
     username: string,
-    password: string,
-    code: string
+    password: string
 }
 interface Role {
     id: number,
@@ -34,4 +33,14 @@ export interface UserInfo {
     createTime: string,
     updateTime: string,
     roles: Array<Role>
+}
+
+export interface CaptchaVo {
+    image1: string,
+    image2: string
+}
+
+export interface CaptchaResult {
+    success: boolean,
+    message: string
 }

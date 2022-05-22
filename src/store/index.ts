@@ -29,15 +29,21 @@ const store = createStore<RootStateType>({
     }
   },
   actions: {
-    async changeUser(context) {
-      const username = localCache.getCache("user").username
-      //这里是为了修改角色后能及时更改当前用户的权限路径，就是新填资源路径菜单能及时更新不需要重新登录
-      const user = await queryByUsername(username);
+    async changeUser(context, payload) {
+      const user = localCache.getCache("user")
+      if (payload.isFlush) {
+        //这里是为了修改角色后能及时更改当前用户的权限路径，就是新填资源路径菜单能及时更新不需要重新登录
+        const result = await queryByUsername(user.username);
+        //把user存到本地
+        localCache.setCache("user", result.data)
+        context.commit('changeUser', result.data)
+      } else {
+        context.commit('changeUser', user)
+      }
+
 
       // console.log(user)
-      //把user存到本地
-      localCache.setCache("user", user.data)
-      context.commit('changeUser', user.data)
+
 
 
     }

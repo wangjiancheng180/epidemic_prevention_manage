@@ -28,7 +28,9 @@
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item>我的信息</el-dropdown-item>
-                                <el-dropdown-item>退出登录</el-dropdown-item>
+                                <el-dropdown-item>
+                                    <el-button type="text" @click="logout"> 退出登录</el-button>
+                                </el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
                     </el-dropdown>
@@ -49,12 +51,14 @@ import { defineComponent, onBeforeMount, onMounted } from 'vue'
 import { Expand } from '@element-plus/icons-vue'
 import { useState, symbolState, symbolChangState } from '@/util/store'
 
+
 export default defineComponent({
     name: 'NavHead',
     components: {
         Expand
     },
-    setup() {
+    emits: ['logout'],
+    setup(props, context) {
         onBeforeMount(() => {
             //2.组件挂载页面之前执行----onBeforeMount
         })
@@ -79,6 +83,9 @@ export default defineComponent({
         const state = useState(symbolState);
         const changeCollapse = useState(symbolChangState)
 
+        function logout() {
+            context.emit("logout")
+        }
 
         return {
             qq_logo_url,
@@ -87,7 +94,8 @@ export default defineComponent({
             date_logo_url,
             msg_logo_url,
             changeCollapse,
-            state
+            state,
+            logout
         }
     },
 })

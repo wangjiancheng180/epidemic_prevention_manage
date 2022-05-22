@@ -22,18 +22,18 @@ export const loginFormRules = {
             message: "密码不能少于6位~",
             trigger: "blur"
         }
-    ],
-    code: [
-        {
-            required: true,
-            message: "验证码不能为空~",
-            trigger: "blur"
-        },
-        {
-            min: 4,
-            max: 4,
-            message: "验证码四位~",
-            trigger: "blur"
-        }
     ]
+    // code: [
+    //     {
+    //         required: true,
+    //         message: "验证码不能为空~",
+    //         trigger: "blur"
+    //     },
+    //     {
+    //         min: 4,
+    //         max: 4,
+    //         message: "验证码四位~",
+    //         trigger: "blur"
+    //     }
+    // ]
 }

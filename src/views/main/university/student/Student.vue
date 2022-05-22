@@ -380,9 +380,14 @@ export default defineComponent({
         //上传成功钩子
         function onSuceess(response: any, uploadFile: UploadFile) {
             if (response) {
-                store.dispatch(`${config.storeModule}/changeTableData`, payload).then(() => {
-                    ElMessage.success(`${uploadFile.name}上传成功！`)
-                })
+                if (response.code) {
+                    ElMessage.error(response.message)
+                } else {
+                    store.dispatch(`${config.storeModule}/changeTableData`, payload).then(() => {
+                        ElMessage.success(`${uploadFile.name}上传成功！`)
+                    })
+
+                }
 
             } else {
                 ElMessage.error(`${uploadFile.name}上传失败！`)
