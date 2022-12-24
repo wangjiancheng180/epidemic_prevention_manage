@@ -12,15 +12,19 @@ module.exports = {
             }
         }
     },
+
     devServer: {
         port: 9997
     },
+
     pluginOptions: {
         'style-resources-loader': {
             preProcessor: 'less',
             patterns: [path.resolve(__dirname, './public/rem.less')]
         }
-    }
+    },
+
+    lintOnSave: false
 }
 
 

@@ -140,6 +140,17 @@ interface StudentFormData {
     //关联班级
     clazzId: any
 }
+
+interface Device extends BaseEnetity {
+    id: string,
+    carNumber: string,
+    deviceName: string,
+    productKey: string,
+    deviceSecret: string,
+    type: string,
+    accessNetwork: number
+    disabled: number
+}
 export interface UniversityState {
     collegeTrees: Array<CollegeTree>,
     collegeFormData: collegeFormData,
@@ -147,4 +158,6 @@ export interface UniversityState {
     clazzFormData: ClazzFormData,
     studentList: Array<StudentDto>,
     studentFormData: StudentFormData
+    deviceList: Array<Device>,
+    deviceFormData: Device
 }

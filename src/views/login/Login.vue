@@ -19,7 +19,8 @@
                             <el-icon color="black" size="40">
                                 <Iphone />
                             </el-icon>
-                            <span>手机号登陆</span>
+
+                            <span>扫码登陆</span>
                         </span>
                     </template>
                 </el-tab-pane>
@@ -67,7 +68,7 @@ export default defineComponent({
     display: flex;
     width: 100%;
     height: 100vh;
-    background-image: url("../../assets/your-name.jpg");
+    background-image: url("../../assets/your-name.png");
     background-size: cover;
     background-repeat: no-repeat;
 

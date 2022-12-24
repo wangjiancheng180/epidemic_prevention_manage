@@ -4,6 +4,7 @@ import { RootStateType } from "../type"
 import { queryCollegeTree, queryCollegeById } from "@/service/university/college"
 import { queryClazzById, queryClazzPage } from "@/service/university/clazz"
 import { queryStudentById, queryStudentPage } from "@/service/university/student"
+import { queryCarPage, queryById } from "@/service/iot/device"
 const universityModule: Module<UniversityState, RootStateType> = {
     namespaced: true,
     state: () => ({
@@ -46,6 +47,17 @@ const universityModule: Module<UniversityState, RootStateType> = {
             birthday: '',
             //关联班级
             clazzId: null
+        },
+        deviceList: [],
+        deviceFormData: {
+            id: "",
+            carNumber: "",
+            deviceName: "",
+            productKey: "",
+            deviceSecret: "",
+            type: "",
+            accessNetwork: 2,
+            disabled: 1
         }
     }),
     mutations: {
@@ -109,6 +121,24 @@ const universityModule: Module<UniversityState, RootStateType> = {
                 clazzId: null
             }
 
+        },
+        changeDeviceList(state, payload) {
+            state.deviceList = payload
+        },
+        changeDeviceFormData(state, payload) {
+            state.deviceFormData = { ...payload }
+        },
+        clearDeviceFormData(state) {
+            state.deviceFormData = {
+                id: "",
+                carNumber: "",
+                deviceName: "",
+                productKey: "",
+                deviceSecret: "",
+                type: "",
+                accessNetwork: 2,
+                disabled: 1
+            }
         }
 
     },
@@ -130,6 +160,13 @@ const universityModule: Module<UniversityState, RootStateType> = {
                     const result = await queryStudentPage(payload.queryBean);
                     payload.pageInfo.total = result.data?.total;
                     context.commit('changeStudentList', result.data?.records)
+                    break;
+                }
+                case 'deviceList': {
+                    const result = await queryCarPage(payload.queryBean);
+                    payload.pageInfo.total = result.data?.total;
+                    context.commit("changeDeviceList", result.data?.records);
+                    break;
                 }
             }
         },
@@ -149,6 +186,11 @@ const universityModule: Module<UniversityState, RootStateType> = {
                 case 'student': {
                     const result = await queryStudentById(payload.id)
                     context.commit('changeStudentFormData', result.data)
+                    break;
+                }
+                case 'device': {
+                    const result = await queryById(payload.id)
+                    context.commit('changeDeviceFormData', result.data)
                 }
             }
         },
@@ -163,6 +205,9 @@ const universityModule: Module<UniversityState, RootStateType> = {
                     break;
                 case 'student':
                     context.commit("clearStudentFormData")
+                    break;
+                case 'device':
+                    context.commit("clearDeviceFormData")
             }
         }
     }

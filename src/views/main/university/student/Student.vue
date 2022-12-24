@@ -112,7 +112,7 @@
             </template>
         </common-table>
         <el-dialog v-model="isPosition" :title="`${positionTitle}位置信息`" center :close-on-click-modal="false"
-            width="80%">
+            destroy-on-close width="80%">
             <position-map ref="positionMap" />
         </el-dialog>
     </div>

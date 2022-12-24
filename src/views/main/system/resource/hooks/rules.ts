@@ -18,8 +18,8 @@ export const rules = {
             trigger: "blur"
         },
         {
-            pattern: /^([a-z]|[A-Z]){4,20}$/,
-            message: 'key只能是字母且4~20位~',
+            pattern: /^([a-z]|[A-Z]){1,20}$/,
+            message: 'key只能是字母且1~20位~',
             tigger: 'blur'
         }
     ],

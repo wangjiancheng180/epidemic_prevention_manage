@@ -3,8 +3,8 @@
         <el-menu active-text-color="#ffd04b" background-color="#060716" class="el-menu-vertical" text-color="#fff"
             :collapse="isCollapse" :router="true">
             <div class="logo">
-                <div class="icon"><i class="iconfont">&#xe621;</i></div>
-                <div class="title" v-show="!isCollapse">万无疫失</div>
+                <div class="icon"><i class="iconfont">&#xe631;</i></div>
+                <div class="title" v-show="!isCollapse">万物互联</div>
             </div>
             <tree-menu :children-list="user.resourceTrees"></tree-menu>
         </el-menu>
